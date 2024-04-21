@@ -1,14 +1,18 @@
 import { Container, Group, Kbd, Stack } from "@mantine/core";
 
 import useKeyPress from "@/hooks/useKeyPress";
-import useNotify from "@/hooks/useNotify";
 import { useGameStore } from "@/lib/zustand/gameStore";
+import keyStyles from "@/styles/Key.module.css";
 import styles from "@/styles/KeyBoard.module.css";
+import { ValidationResult } from "@/types/validationResult";
+import { useEffect } from "react";
 
 export const KeyBoard = () => {
-  const { ErrorNotify } = useNotify();
   const AddKey = useGameStore((state) => state.AddKey);
   const RemoveKey = useGameStore((state) => state.RemoveKey);
+  const ValidateWord = useGameStore((state) => state.ValidateWord);
+  const isFullLine = useGameStore((state) => state.isFullLine);
+  const validationResult = useGameStore((state) => state.validationResult);
 
   const gameBoard: string[][] = [
     ["A", "Z", "E", "R", "T", "Y", "U", "I", "O", "P"],
@@ -19,7 +23,7 @@ export const KeyBoard = () => {
   useKeyPress((keyEvent) => handleClickKey(keyEvent.key.toUpperCase()));
 
   const handleClickKey = (key: string) => {
-    if (key === "ENTER") return;
+    if (isFullLine && key === "ENTER") ValidateWord();
 
     if (key === "BACKSPACE") return RemoveKey();
 
@@ -29,6 +33,32 @@ export const KeyBoard = () => {
     AddKey(key);
   };
 
+  useEffect(() => {
+    if (!validationResult) return;
+    handleUpdateClass(validationResult);
+  }, [validationResult]);
+
+  const handleUpdateClass = (validations: ValidationResult[]) => {
+    for (const validation of validations) {
+      const key = document.getElementById(validation.char);
+      if (!key) return;
+
+      if (validation.state === 1) {
+        key.classList.remove(keyStyles.error);
+        key.classList.remove(keyStyles.warning);
+        key.classList.add(keyStyles.success);
+      } else if (validation.state === -1) {
+        key.classList.remove(keyStyles.success);
+        key.classList.remove(keyStyles.warning);
+        key.classList.add(keyStyles.error);
+      } else if (validation.state === 0) {
+        key.classList.remove(keyStyles.success);
+        key.classList.remove(keyStyles.error);
+        key.classList.add(keyStyles.warning);
+      }
+    }
+  };
+
   return (
     <Container my="xl">
       <Stack gap="xl" align="center" justify="center">
@@ -36,6 +66,7 @@ export const KeyBoard = () => {
           <Group key={rowIndex} gap="xs" justify="center" align="center">
             {row.map((cell, cellIndex) => (
               <Kbd
+                id={cell}
                 key={cellIndex}
                 size="xl"
                 mih="xl"
