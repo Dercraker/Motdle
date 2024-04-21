@@ -1,9 +1,18 @@
+.key {
+  cursor: pointer;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 .success {
-  background-color: #4caf50;
+  background-color: #3d8c40;
 }
 .error {
-  background-color: #f44336;
+  background-color: #750d06;
 }
 .warning {
-  background-color: #ffeb3b;
+  background-color: #7e7200;
 }

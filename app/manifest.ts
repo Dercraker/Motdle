@@ -8,7 +8,7 @@ const manifest = (): MetadataRoute.Manifest => {
     description: SiteConfig.description,
     start_url: "/",
     display: "standalone",
-    background_color: "#fff",
+    background_color: "#1b1d1e",
     icons: [
       {
         src: "/favicon.ico",

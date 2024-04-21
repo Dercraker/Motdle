@@ -1,5 +1,5 @@
 import { useGameStore } from "@/lib/zustand/gameStore";
-import keyStyles from "@/styles/Key.module.css";
+import styles from "@/styles/Key.module.css";
 import { ValidationResult } from "@/types/validationResult";
 import { Container, Group, Kbd, Stack } from "@mantine/core";
 import { useEffect } from "react";
@@ -30,17 +30,17 @@ export const Board = () => {
       console.log("🚀 ~ validations.map ~ key:", key);
 
       if (validation.state === 1) {
-        key.classList.remove(keyStyles.error);
-        key.classList.remove(keyStyles.warning);
-        key.classList.add(keyStyles.success);
+        key.classList.remove(styles.error);
+        key.classList.remove(styles.warning);
+        key.classList.add(styles.success);
       } else if (validation.state === -1) {
-        key.classList.remove(keyStyles.success);
-        key.classList.remove(keyStyles.warning);
-        key.classList.add(keyStyles.error);
+        key.classList.remove(styles.success);
+        key.classList.remove(styles.warning);
+        key.classList.add(styles.error);
       } else if (validation.state === 0) {
-        key.classList.remove(keyStyles.success);
-        key.classList.remove(keyStyles.error);
-        key.classList.add(keyStyles.warning);
+        key.classList.remove(styles.success);
+        key.classList.remove(styles.error);
+        key.classList.add(styles.warning);
       }
 
       return null;
@@ -49,13 +49,15 @@ export const Board = () => {
 
   return (
     <Container>
-      <Stack gap="xl" align="center" justify="center">
+      <Stack gap="sm" align="center" justify="center">
         {gameBoard.map((row, rowIndex) => (
           <Group key={rowIndex} gap="xs" justify="center" align="center">
             {row.map((cell, cellIndex) => (
               <Kbd
                 id={rowIndex + "-" + cellIndex}
                 key={cellIndex}
+                className={styles.key}
+                style={{ cursor: "not-allowed" }}
                 size="xl"
                 mih="xl"
                 miw="xl"
