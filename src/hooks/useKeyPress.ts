@@ -7,7 +7,7 @@ const useKeyPress = (callback: (event: KeyboardEvent) => void) => {
     return () => {
       document.removeEventListener("keypress", callback);
     };
-  }, []);
+  }, [callback]);
 };
 
 export default useKeyPress;

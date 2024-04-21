@@ -18,7 +18,7 @@ export const KeyBoard = () => {
     AddKey(keyEvent.key.toUpperCase());
   });
 
-  const handleClickKey = (evn) => {
+  const handleClickKey = (evn: any) => {
     console.log("🚀 ~ handleClickKey ~ key", evn.target.textContent);
 
     AddKey(evn.target.textContent.toUpperCase());
