@@ -2,10 +2,10 @@ import { useEffect } from "react";
 
 const useKeyPress = (callback: (event: KeyboardEvent) => void) => {
   useEffect(() => {
-    document.addEventListener("keypress", callback);
+    document.addEventListener("keyup", callback);
 
     return () => {
-      document.removeEventListener("keypress", callback);
+      document.removeEventListener("keyup", callback);
     };
   }, [callback]);
 };

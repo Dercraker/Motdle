@@ -10,8 +10,8 @@ export type NotifyDto = {
 };
 
 const useNotify = () => {
-  const defaultErrorTitle = "An error has occurred";
-  const defaultErrorMessage = "Please try again later";
+  const defaultErrorTitle = "Une erreur s'est produite";
+  const defaultErrorMessage = "Veuillez réessayer plus tard";
   const defaultAutoClose = 5000;
   const defaultMultipleAutoClose = 7000;
 

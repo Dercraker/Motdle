@@ -1,15 +1,16 @@
 import { create } from "zustand";
 
 type GameStore = {
-  currentBoard: string[][];
+  gameBoard: string[][];
   currentRow: number;
   currentCol: number;
   isFullLine: boolean;
   AddKey: (key: string) => void;
+  RemoveKey: () => void;
 };
 
 export const useGameStore = create<GameStore>((set) => ({
-  currentBoard: [
+  gameBoard: [
     ["", "", "", "", ""],
     ["", "", "", "", ""],
     ["", "", "", "", ""],
@@ -23,21 +24,44 @@ export const useGameStore = create<GameStore>((set) => ({
   isFullLine: false,
 
   AddKey: (key) =>
-    set((state) => ({
-      currentBoard: state.currentBoard.map((row, rowIdx) => {
-        if (rowIdx === state.currentRow) {
-          return row.map((col, colIdx) => {
-            if (colIdx === state.currentCol) {
-              return key;
-            }
-            return col;
-          });
-        }
-        return row;
-      }),
-      currentRow:
-        state.currentCol === 4 ? state.currentRow + 1 : state.currentRow,
-      currentCol: state.currentCol === 4 ? 0 : state.currentCol + 1,
-      isFullLine: state.currentCol === 4,
-    })),
+    set((state) => {
+      if (state.isFullLine) return state;
+
+      const { currentRow, currentCol } = state;
+
+      const updatedGameBoard = [...state.gameBoard];
+      updatedGameBoard[currentRow][currentCol] = key;
+
+      const newCol = currentCol < 4 ? currentCol + 1 : currentCol;
+      const isFull = currentCol === 4;
+
+      return {
+        gameBoard: updatedGameBoard,
+        currentCol: newCol,
+        isFullLine: isFull,
+      };
+    }),
+
+  RemoveKey: () => {
+    set((state) => {
+      if (state.currentCol === 0) return state;
+
+      const updatedGameBoard = [...state.gameBoard];
+      if (state.isFullLine)
+        updatedGameBoard[state.currentRow][state.currentCol] = "_";
+      else updatedGameBoard[state.currentRow][state.currentCol - 1] = "_";
+
+      const newCurrentCol = state.isFullLine
+        ? state.currentCol
+        : state.currentCol > 0
+          ? state.currentCol - 1
+          : 0;
+
+      return {
+        gameBoard: updatedGameBoard,
+        currentCol: newCurrentCol,
+        isFullLine: false,
+      };
+    });
+  },
 }));

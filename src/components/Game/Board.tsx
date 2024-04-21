@@ -2,7 +2,7 @@ import { useGameStore } from "@/lib/zustand/gameStore";
 import { Container, Group, Kbd, Stack } from "@mantine/core";
 
 export const Board = () => {
-  const gameBoard = useGameStore((state) => state.currentBoard);
+  const { gameBoard } = useGameStore();
 
   return (
     <Container>
@@ -11,7 +11,7 @@ export const Board = () => {
           <Group key={rowIndex} gap="xs" justify="center" align="center">
             {row.map((cell, cellIndex) => (
               <Kbd key={cellIndex} size="xl" mih="xl" miw="xl">
-                {cell}
+                {cellIndex}-{cell}
               </Kbd>
             ))}
           </Group>

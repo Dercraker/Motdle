@@ -1,11 +1,14 @@
 import { Container, Group, Kbd, Stack } from "@mantine/core";
 
 import useKeyPress from "@/hooks/useKeyPress";
+import useNotify from "@/hooks/useNotify";
 import { useGameStore } from "@/lib/zustand/gameStore";
 import styles from "@/styles/KeyBoard.module.css";
 
 export const KeyBoard = () => {
+  const { ErrorNotify } = useNotify();
   const AddKey = useGameStore((state) => state.AddKey);
+  const RemoveKey = useGameStore((state) => state.RemoveKey);
 
   const gameBoard: string[][] = [
     ["A", "Z", "E", "R", "T", "Y", "U", "I", "O", "P"],
@@ -13,15 +16,17 @@ export const KeyBoard = () => {
     ["W", "X", "C", "V", "B", "N"],
   ];
 
-  useKeyPress((keyEvent) => {
-    console.log("🚀 ~ useKeyPress ~ KeyPressed:", keyEvent.key);
-    AddKey(keyEvent.key.toUpperCase());
-  });
+  useKeyPress((keyEvent) => handleClickKey(keyEvent.key.toUpperCase()));
 
-  const handleClickKey = (evn: any) => {
-    console.log("🚀 ~ handleClickKey ~ key", evn.target.textContent);
+  const handleClickKey = (key: string) => {
+    if (key === "ENTER") return;
 
-    AddKey(evn.target.textContent.toUpperCase());
+    if (key === "BACKSPACE") return RemoveKey();
+
+    const asciiCode = key.charCodeAt(0);
+    if (key.length > 1 || asciiCode < 65 || asciiCode > 90) return;
+
+    AddKey(key);
   };
 
   return (
@@ -36,7 +41,9 @@ export const KeyBoard = () => {
                 mih="xl"
                 miw="xl"
                 className={styles.key}
-                onClick={(e) => handleClickKey(e)}
+                onClick={(e) => {
+                  handleClickKey((e.target as any).textContent);
+                }}
               >
                 {cell}
               </Kbd>
