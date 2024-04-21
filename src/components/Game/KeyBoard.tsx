@@ -2,8 +2,7 @@ import { Container, Group, Kbd, Stack } from "@mantine/core";
 
 import useKeyPress from "@/hooks/useKeyPress";
 import { useGameStore } from "@/lib/zustand/gameStore";
-import keyStyles from "@/styles/Key.module.css";
-import styles from "@/styles/KeyBoard.module.css";
+import styles from "@/styles/Key.module.css";
 import { ValidationResult } from "@/types/validationResult";
 import { useEffect } from "react";
 
@@ -18,14 +17,17 @@ export const KeyBoard = () => {
     ["A", "Z", "E", "R", "T", "Y", "U", "I", "O", "P"],
     ["Q", "S", "D", "F", "G", "H", "J", "K", "L", "M"],
     ["W", "X", "C", "V", "B", "N"],
+    ["↵", "⌫"],
   ];
 
   useKeyPress((keyEvent) => handleClickKey(keyEvent.key.toUpperCase()));
 
   const handleClickKey = (key: string) => {
-    if (isFullLine && key === "ENTER") ValidateWord();
+    key = key.toUpperCase();
 
-    if (key === "BACKSPACE") return RemoveKey();
+    if (isFullLine && (key === "↵" || key === "ENTER")) ValidateWord();
+
+    if (key === "⌫" || key === "BACKSPACE") return RemoveKey();
 
     const asciiCode = key.charCodeAt(0);
     if (key.length > 1 || asciiCode < 65 || asciiCode > 90) return;
@@ -44,17 +46,17 @@ export const KeyBoard = () => {
       if (!key) return;
 
       if (validation.state === 1) {
-        key.classList.remove(keyStyles.error);
-        key.classList.remove(keyStyles.warning);
-        key.classList.add(keyStyles.success);
+        key.classList.remove(styles.error);
+        key.classList.remove(styles.warning);
+        key.classList.add(styles.success);
       } else if (validation.state === -1) {
-        key.classList.remove(keyStyles.success);
-        key.classList.remove(keyStyles.warning);
-        key.classList.add(keyStyles.error);
+        key.classList.remove(styles.success);
+        key.classList.remove(styles.warning);
+        key.classList.add(styles.error);
       } else if (validation.state === 0) {
-        key.classList.remove(keyStyles.success);
-        key.classList.remove(keyStyles.error);
-        key.classList.add(keyStyles.warning);
+        key.classList.remove(styles.success);
+        key.classList.remove(styles.error);
+        key.classList.add(styles.warning);
       }
     }
   };
@@ -73,6 +75,7 @@ export const KeyBoard = () => {
                 miw="xl"
                 className={styles.key}
                 onClick={(e) => {
+                  console.log("🚀 ~ KeyBoard ~ e:", e);
                   handleClickKey((e.target as any).textContent);
                 }}
               >
