@@ -1,5 +1,5 @@
 export const SiteConfig = {
-  title: "FrenchWordle",
+  title: "French-Wordle",
   description: "A French Wordle game",
   prodUrl: "https://FrenchWordle.dercraker.fr",
   domain: "dercraker.fr",
@@ -7,5 +7,11 @@ export const SiteConfig = {
   company: {
     name: "Dercraker Inc.",
     address: "In the cloud",
+  },
+  email: {
+    contact: "contact@dercraker.fr",
+  },
+  social: {
+    github: "https://github.com/Dercraker/FrenchWordle",
   },
 };

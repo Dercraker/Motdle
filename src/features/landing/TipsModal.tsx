@@ -50,6 +50,13 @@ export const TipsModal = () => {
                 </Text>
               }
             />
+            <WordleExemple
+              word="JOUER"
+              letters="JOUER"
+              label={
+                <Text>Toute les lettre sont présentes et à la bonne place</Text>
+              }
+            />
           </Stack>
         </Modal.Body>
       </Modal.Content>

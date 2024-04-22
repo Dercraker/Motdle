@@ -2,14 +2,15 @@
 
 import { Board } from "@/components/Game/Board";
 import { KeyBoard } from "@/components/Game/KeyBoard";
+import { LandingFooter } from "@/components/layout/footer/LandingFooter";
+import { LandingHeader } from "@/components/layout/header/LandingHeader";
 import { TipsModal } from "@/features/landing/TipsModal";
-import { SiteConfig } from "@/site-config";
-import { Space, Title } from "@mantine/core";
+import { Space } from "@mantine/core";
 
-const Page = () => {
+const RoutePage = () => {
   return (
     <>
-      <Title ta="center">{SiteConfig.title} is a French Wordle game</Title>
+      <LandingHeader />
 
       <TipsModal />
 
@@ -17,8 +18,9 @@ const Page = () => {
       <Board />
       <Space h="xl" />
       <KeyBoard />
+      <LandingFooter />
     </>
   );
 };
 
-export default Page;
+export default RoutePage;
