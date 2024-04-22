@@ -2,7 +2,7 @@ import { ComponentPropsWithoutRef } from "react";
 
 export type LogoSvgProps = ComponentPropsWithoutRef<"svg"> & { size?: number };
 
-export const LogoSvg = ({ size = 24, ...props }: LogoSvgProps) => {
+export const LogoSvgWhite = ({ size = 24, ...props }: LogoSvgProps) => {
   return (
     <svg
       width={size}
@@ -12,7 +12,7 @@ export const LogoSvg = ({ size = 24, ...props }: LogoSvgProps) => {
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
-      <g filter="url(#filter0_d_2007_2)">
+      <g filter="url(#filter0_d_2006_11)">
         <path
           d="M58 58L70.5926 158L95.7778 95.5L120.963 158L133.556 58"
           stroke="white"
@@ -20,18 +20,10 @@ export const LogoSvg = ({ size = 24, ...props }: LogoSvgProps) => {
           strokeLinecap="round"
           strokeLinejoin="round"
         />
-        <path
-          d="M58 58L70.5926 158L95.7778 95.5L120.963 158L133.556 58"
-          stroke="url(#paint0_linear_2007_2)"
-          strokeOpacity="0.8"
-          strokeWidth="15"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
       </g>
       <defs>
         <filter
-          id="filter0_d_2007_2"
+          id="filter0_d_2006_11"
           x="0.499207"
           y="0.499207"
           width="190.557"
@@ -55,27 +47,15 @@ export const LogoSvg = ({ size = 24, ...props }: LogoSvgProps) => {
           <feBlend
             mode="normal"
             in2="BackgroundImageFix"
-            result="effect1_dropShadow_2007_2"
+            result="effect1_dropShadow_2006_11"
           />
           <feBlend
             mode="normal"
             in="SourceGraphic"
-            in2="effect1_dropShadow_2007_2"
+            in2="effect1_dropShadow_2006_11"
             result="shape"
           />
         </filter>
-        <linearGradient
-          id="paint0_linear_2007_2"
-          x1="58"
-          y1="108"
-          x2="134"
-          y2="108"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop stopColor="#001AFF" />
-          <stop offset="0.524238" stopColor="white" />
-          <stop offset="1" stopColor="#FF0000" />
-        </linearGradient>
       </defs>
     </svg>
   );

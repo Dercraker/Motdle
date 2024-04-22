@@ -11,18 +11,12 @@ export const Board = () => {
   const validationResult = useGameStore((state) => state.validationResult);
 
   useEffect(() => {
-    console.log("🚀 ~ useEffect ~ validationResult:", validationResult);
     handleUpdateClass(validationResult);
   }, [validationResult]);
 
   const handleUpdateClass = (validations: ValidationResult[]) => {
     validations.map((validation, validationIndex) => {
       const currentCol = validationIndex;
-
-      console.log(
-        `🚀 ~ handleUpdateClass ~ ${currentRow - 1}-${currentCol}:`,
-        `${currentRow - 1}-${currentCol}`,
-      );
 
       const key = document.getElementById(`${currentRow - 1}-${currentCol}`);
 

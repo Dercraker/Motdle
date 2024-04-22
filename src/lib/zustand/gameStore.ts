@@ -1,8 +1,22 @@
 import useNotify from "@/hooks/useNotify";
-import { GameStore } from "@/types/gameStore";
 import { ValidationResult } from "@/types/validationResult";
 import { WORDS } from "@/words";
 import { create } from "zustand";
+
+export type GameStore = {
+  currentWord: string[];
+  validationResult: ValidationResult[];
+  gameBoard: string[][];
+  currentRow: number;
+  currentCol: number;
+  isFullLine: boolean;
+  isEndGame: boolean;
+
+  AddKey: (key: string) => void;
+  RemoveKey: () => void;
+
+  ValidateWord: () => void;
+};
 
 export const useGameStore = create<GameStore>((set) => ({
   currentWord: WORDS[Math.floor(Math.random() * WORDS.length)]

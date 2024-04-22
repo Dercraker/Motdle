@@ -1,24 +1,34 @@
+import { LogoSvgWhite } from "@/components/svg/LogoSvgWhite";
+import useCookie from "@/hooks/useCookie";
 import styles from "@/styles/Key.module.css";
-import { Group, Kbd, Modal, Stack, Text, Title } from "@mantine/core";
-import { IconX } from "@tabler/icons-react";
-import { useState } from "react";
+import {
+  Button,
+  Checkbox,
+  Group,
+  Kbd,
+  Modal,
+  Stack,
+  Text,
+  Title,
+} from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import { IconPlayerPlay, IconX } from "@tabler/icons-react";
 import { WordleExemple } from "./WordleExemple";
 
 export const TipsModal = () => {
-  const [opened, setOpened] = useState<boolean>(true);
+  const { GetCookie, SaveCookieWithExpireTime, DeleteCookie } = useCookie();
+
+  const tipsCookie: boolean = Boolean(GetCookie("Tips"));
+  const [opened, { close: closeModal }] = useDisclosure(!tipsCookie);
 
   return (
-    <Modal.Root
-      opened={opened}
-      onClose={() => setOpened(false)}
-      centered
-      size="xl"
-    >
+    <Modal.Root opened={opened} onClose={closeModal} centered size="xl">
       <Modal.Overlay backgroundOpacity={0.55} blur={3} />
       <Modal.Content>
         <Modal.Body>
           <Stack>
             <Group align="center" justify="end">
+              <LogoSvgWhite size={48} />
               <Title>French Wordle Game</Title>
               <Modal.CloseButton icon={<IconX />} />
             </Group>
@@ -50,6 +60,27 @@ export const TipsModal = () => {
                 </Text>
               }
             />
+            <WordleExemple
+              word="JOUER"
+              letters="JOUER"
+              label={
+                <Text>Toute les lettre sont présentes et à la bonne place</Text>
+              }
+            />
+
+            <Checkbox
+              checked={tipsCookie}
+              label="Ne plus afficher"
+              variant="outline"
+              onClick={(evn) =>
+                evn.currentTarget.checked
+                  ? SaveCookieWithExpireTime("Tips", `true`, 90)
+                  : DeleteCookie("Tips")
+              }
+            />
+            <Button leftSection={<IconPlayerPlay />} onClick={closeModal}>
+              Commencer à jouer !
+            </Button>
           </Stack>
         </Modal.Body>
       </Modal.Content>
