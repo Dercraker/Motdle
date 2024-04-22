@@ -18,7 +18,7 @@ import { WordleExemple } from "./WordleExemple";
 export const TipsModal = () => {
   const { GetCookie, SaveCookieWithExpireTime, DeleteCookie } = useCookie();
 
-  const tipsCookie: boolean = GetCookie("Tips");
+  const tipsCookie: boolean = Boolean(GetCookie("Tips"));
   const [opened, { close: closeModal }] = useDisclosure(!tipsCookie);
 
   return (
