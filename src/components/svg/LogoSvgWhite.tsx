@@ -14,7 +14,7 @@ export const LogoSvgWhite = ({ size = 24, ...props }: LogoSvgProps) => {
     >
       <g filter="url(#filter0_d_2006_11)">
         <path
-          d="M58 58L70.5926 158L95.7778 95.5L120.963 158L133.556 58"
+          d="M133.556 158L120.963 58L95.7778 120.5L70.5926 58L58 158"
           stroke="white"
           strokeWidth="15"
           strokeLinecap="round"
@@ -25,7 +25,7 @@ export const LogoSvgWhite = ({ size = 24, ...props }: LogoSvgProps) => {
         <filter
           id="filter0_d_2006_11"
           x="0.499207"
-          y="0.499207"
+          y="0.499634"
           width="190.557"
           height="215.001"
           filterUnits="userSpaceOnUse"
