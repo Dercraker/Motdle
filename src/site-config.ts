@@ -9,9 +9,13 @@ export const SiteConfig = {
     address: "In the cloud",
   },
   email: {
+    from: "Motdle <contact@dercraker.fr>",
     contact: "contact@dercraker.fr",
   },
   social: {
     github: "https://github.com/Dercraker/FrenchWordle",
+  },
+  auth: {
+    password: false as boolean,
   },
 };
