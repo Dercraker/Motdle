@@ -3,7 +3,6 @@ import { SiteConfig } from "@/site-config";
 import type { NextAuthConfig } from "next-auth";
 import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
-import { env } from "../env";
 import { getCredentialsProvider } from "./credentialsProvider";
 
 type Providers = NonNullable<NextAuthConfig["providers"]>;
