@@ -7,7 +7,7 @@ import { Container, Group, Title } from "@mantine/core";
 export const LandingHeader = () => {
   return (
     <header className={styles.container}>
-      <Container>
+      <Container py="xs">
         <Group align="center" justify="space-between">
           <Group>
             <LogoSvg size={38} />

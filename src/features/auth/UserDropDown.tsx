@@ -1,12 +1,5 @@
 import { AvatarImage } from "@/components/ui/avatar";
-import {
-  ActionIcon,
-  Group,
-  Menu,
-  Text,
-  rem,
-  useMantineTheme,
-} from "@mantine/core";
+import { ActionIcon, Group, Menu, Text, rem } from "@mantine/core";
 import { IconChevronRight, IconSettings } from "@tabler/icons-react";
 import { User } from "next-auth";
 import { ReactNode } from "react";
@@ -18,7 +11,6 @@ interface UserDropDownProps {
 }
 
 export const UserDropDown = (props: UserDropDownProps) => {
-  const theme = useMantineTheme();
   return (
     <Group justify="center">
       <Menu
@@ -27,6 +19,7 @@ export const UserDropDown = (props: UserDropDownProps) => {
         position="bottom-end"
         transitionProps={{ transition: "pop" }}
         withinPortal
+        trigger="click-hover"
       >
         <Menu.Target>
           <ActionIcon variant="transparent" radius="xl" size="xl">
