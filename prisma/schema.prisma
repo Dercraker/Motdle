@@ -59,6 +59,9 @@ model User {
   // For the Credentials provider
   passwordHash String?
 
+  // Resend email
+  resendContactId String?
+
   sessions  Session[]
   accounts  Account[]
   Score Score[]

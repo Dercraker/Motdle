@@ -1,7 +1,7 @@
 export const SiteConfig = {
   title: "Motdle",
   description: "A French Wordle game",
-  prodUrl: "https://FrenchWordle.dercraker.fr",
+  prodUrl: "https://motdle.dercraker.fr",
   domain: "dercraker.fr",
   appIcon: "/images/icon.png",
   company: {
@@ -14,6 +14,10 @@ export const SiteConfig = {
   },
   social: {
     github: "https://github.com/Dercraker/FrenchWordle",
+  },
+  maker: {
+    website: "https://dercraker.fr",
+    name: "Dercraker",
   },
   auth: {
     password: false as boolean,
