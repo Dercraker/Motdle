@@ -7,12 +7,16 @@
   user-select: none;
 }
 
-.success {
+.idle {
+  background-color: #2d2d2d;
+}
+
+.correct {
   background-color: #3d8c40;
 }
-.error {
-  background-color: #750d06;
+.absent {
+  background-color: #535353;
 }
-.warning {
+.present {
   background-color: #7e7200;
 }

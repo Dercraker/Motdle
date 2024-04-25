@@ -1,7 +1,8 @@
 import { PrismaClient } from "@prisma/client";
+import prismaRandom from "prisma-extension-random";
 
 const prismaClientSingleton = () => {
-  return new PrismaClient();
+  return new PrismaClient().$extends(prismaRandom());
 };
 
 type PrismaClientSingleton = ReturnType<typeof prismaClientSingleton>;
