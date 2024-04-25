@@ -1,3 +1,5 @@
+"use client";
+
 import styles from "@/styles/Key.module.css";
 import { Group, Kbd, Stack, Text } from "@mantine/core";
 import { useCallback, useEffect, useId } from "react";

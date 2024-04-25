@@ -1,3 +1,5 @@
+"use client";
+
 import { useGameStore } from "@/lib/zustand/gameStore";
 import styles from "@/styles/Key.module.css";
 import { ValidationResult } from "@/types/validationResult";

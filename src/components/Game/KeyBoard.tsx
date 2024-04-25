@@ -1,3 +1,5 @@
+"use client";
+
 import { Container, Group, Kbd, Stack } from "@mantine/core";
 
 import useKeyPress from "@/hooks/useKeyPress";
