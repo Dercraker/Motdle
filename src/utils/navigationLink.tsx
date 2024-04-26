@@ -4,6 +4,7 @@ interface NavigationLink {
   label: string;
   href: string;
   icon: React.ReactNode;
+  auth?: boolean;
 }
 
 export const LandingHeaderLinks: NavigationLink[] = [
@@ -16,6 +17,7 @@ export const LandingHeaderLinks: NavigationLink[] = [
     label: "Partie Quotidienne",
     href: "/connectplay",
     icon: <IconDeviceGamepad2 />,
+    auth: true,
   },
   {
     label: "Partie Illimité",

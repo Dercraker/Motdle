@@ -6,6 +6,7 @@ import styles from "@/styles/LandingLayout.module.css";
 import { LandingHeaderLinks } from "@/utils/navigationLink";
 import { SiteConfig } from "@/utils/site-config";
 import { AppShell, Burger, Group, Title, UnstyledButton } from "@mantine/core";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useMemo } from "react";
 
@@ -15,6 +16,7 @@ interface LandingHeaderProps {
 }
 
 export const LandingHeader = ({ opened, toggle }: LandingHeaderProps) => {
+  const session = useSession();
   const router = useRouter();
 
   const handleClickMenuLink = (link: string) => {
@@ -23,19 +25,25 @@ export const LandingHeader = ({ opened, toggle }: LandingHeaderProps) => {
   };
 
   const links = useMemo(() => {
-    return LandingHeaderLinks.map((link) => (
-      <UnstyledButton
-        key={link.label}
-        className={styles.control}
-        onClick={() => handleClickMenuLink(link.href)}
-      >
-        <Group gap="3px">
-          {link.icon}
-          {link.label}
-        </Group>
-      </UnstyledButton>
-    ));
-  }, [LandingHeaderLinks]);
+    return LandingHeaderLinks.map((link) => {
+      if (link.auth && session.status !== "authenticated") {
+        return null;
+      }
+
+      return (
+        <UnstyledButton
+          key={link.label}
+          className={styles.control}
+          onClick={() => handleClickMenuLink(link.href)}
+        >
+          <Group gap="3px">
+            {link.icon}
+            {link.label}
+          </Group>
+        </UnstyledButton>
+      );
+    });
+  }, [LandingHeaderLinks, session]);
 
   return (
     <>
