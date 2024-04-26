@@ -1,9 +1,16 @@
 "use client";
 
 import { LogoSvg } from "@/components/svg/LogoSvg";
-import { SiteConfig } from "@/site-config";
 import classes from "@/styles/LandingFooter.module.css";
-import { Anchor, Container, Group, Title } from "@mantine/core";
+import { SiteConfig } from "@/utils/site-config";
+import {
+  Anchor,
+  Box,
+  Container,
+  Group,
+  MantineStyleProps,
+  Title,
+} from "@mantine/core";
 import { IconBrandGithub, IconMail } from "@tabler/icons-react";
 
 const links = [
@@ -19,7 +26,7 @@ const links = [
   },
 ];
 
-export const LandingFooter = () => {
+export const LandingFooter = (props: MantineStyleProps) => {
   const items = links.map((link) => (
     <Anchor<"a">
       c="dimmed"
@@ -36,7 +43,7 @@ export const LandingFooter = () => {
   ));
 
   return (
-    <footer className={classes.footer}>
+    <Box className={classes.footer} {...props}>
       <Container className={classes.inner}>
         <Group>
           <LogoSvg size={38} />
@@ -46,6 +53,6 @@ export const LandingFooter = () => {
         </Group>
         <Group className={classes.links}>{items}</Group>
       </Container>
-    </footer>
+    </Box>
   );
 };
