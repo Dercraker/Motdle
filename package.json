@@ -4,12 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "pnpm i && next dev",
+    "format": "prettier --write .",
+    "lint": "next lint --fix",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint --fix",
     "vercel-build": "prisma generate && prisma migrate deploy && next build",
     "postinstall": "prisma generate",
-    "format": "prettier --write .",
     "ts": "tsc --noEmit"
   },
   "dependencies": {

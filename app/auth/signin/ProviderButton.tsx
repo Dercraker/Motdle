@@ -3,19 +3,18 @@ import { Button } from "@mantine/core";
 import { IconBrandDiscord, IconBrandGithub } from "@tabler/icons-react";
 import { useMutation } from "@tanstack/react-query";
 import { signIn } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
+import { useQueryState } from "nuqs";
 
 type ProviderButtonProps = {
   providerId: string;
 };
 
 export const ProviderButton = (props: ProviderButtonProps) => {
-  const searchParams = useSearchParams();
-
+  const [callbackUrl] = useQueryState("callbackUrl");
   const oAuthSignInMutation = useMutation({
     mutationFn: () =>
       signIn(props.providerId, {
-        callbackUrl: searchParams.get("callbackUrl") ?? `${getServerUrl()}/`,
+        callbackUrl: callbackUrl ?? `${getServerUrl()}/`,
       }),
   });
 

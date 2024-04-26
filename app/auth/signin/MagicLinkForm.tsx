@@ -6,7 +6,7 @@ import { useForm } from "@mantine/form";
 import { useMutation } from "@tanstack/react-query";
 import { zodResolver } from "mantine-form-zod-resolver";
 import { signIn } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
+import { useQueryState } from "nuqs";
 import { z } from "zod";
 
 const FormSchema = z.object({
@@ -22,11 +22,11 @@ export const MagicLinkForm = () => {
     validate: zodResolver(FormSchema),
   });
 
-  const searchParams = useSearchParams();
+  const [callbackUrl] = useQueryState("callbackUrl");
   const emailSignInMutation = useMutation({
     mutationFn: async (email: string) => {
       await signIn("resend", {
-        callbackUrl: searchParams.get("callbackUrl") ?? `${getServerUrl()}/`,
+        callbackUrl: callbackUrl ?? `${getServerUrl()}/`,
         redirect: true,
         email,
       });

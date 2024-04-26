@@ -1,9 +1,11 @@
 "use client";
 
+import { LandingFooter } from "@/components/layout/footer/LandingFooter";
 import { LandingHeader } from "@/components/layout/header/LandingHeader";
 import { LayoutParams } from "@/types/next";
 import { AppShell } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { Suspense } from "react";
 
 const RootLayout = ({ children }: LayoutParams<{}>) => {
   const [opened, { toggle }] = useDisclosure(true);
@@ -20,7 +22,10 @@ const RootLayout = ({ children }: LayoutParams<{}>) => {
     >
       <LandingHeader opened={opened} toggle={toggle} />
 
-      <AppShell.Main>{children}</AppShell.Main>
+      <AppShell.Main>
+        <Suspense>{children}</Suspense>
+      </AppShell.Main>
+      <LandingFooter />
     </AppShell>
   );
 };

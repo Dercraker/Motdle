@@ -1,5 +1,6 @@
 "use client";
 
+import { LandingFooter } from "@/components/layout/footer/LandingFooter";
 import { LandingHeader } from "@/components/layout/header/LandingHeader";
 import { LayoutParams } from "@/types/next";
 import { AppShell } from "@mantine/core";
@@ -21,6 +22,8 @@ const RootLayout = ({ children }: LayoutParams<{}>) => {
       <LandingHeader opened={opened} toggle={toggle} />
 
       <AppShell.Main>{children}</AppShell.Main>
+
+      <LandingFooter mt="15em" />
     </AppShell>
   );
 };

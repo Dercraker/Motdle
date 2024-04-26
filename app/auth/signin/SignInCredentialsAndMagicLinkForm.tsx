@@ -4,7 +4,7 @@ import { Button, Group, Stack, Text, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { zodResolver } from "mantine-form-zod-resolver";
 import { signIn } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
+import { useQueryState } from "nuqs";
 import { useLocalStorage } from "react-use";
 import { z } from "zod";
 
@@ -23,7 +23,7 @@ export const SignInCredentialsAndMagicLinkForm = () => {
     validate: zodResolver(LoginCredentialsFormScheme),
   });
 
-  const searchParams = useSearchParams();
+  const [callbackUrl] = useQueryState("callbackUrl");
   const [isUsingCredentials, setIsUsingCredentials] = useLocalStorage(
     "sign-in-with-credentials",
     false,
@@ -35,12 +35,12 @@ export const SignInCredentialsAndMagicLinkForm = () => {
       await signIn("credentials", {
         email: loginFrom.values.email,
         password: loginFrom.values.password,
-        callbackUrl: searchParams.get("callbackUrl") ?? undefined,
+        callbackUrl: callbackUrl ?? undefined,
       });
     } else {
       await signIn("resend", {
         email: loginFrom.values.email,
-        callbackUrl: searchParams.get("callbackUrl") ?? undefined,
+        callbackUrl: callbackUrl ?? undefined,
       });
     }
   };

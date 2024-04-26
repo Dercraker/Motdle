@@ -29,7 +29,7 @@ const Rules = ({ StartGame, gameIsReady }: RulesProps) => {
             </List.Item>
             <List.Item>
               <Group>
-                <Text>Le mot n'est pas un mot composé</Text>
+                <Text>Le mot n&apos;est pas un mot composé</Text>
                 <Text fs="italic" c="dimmed">
                   ex: monte-charge
                 </Text>
