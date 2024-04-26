@@ -1,32 +1,17 @@
 import useKeyPress from "@/hooks/useKeyPress";
-import {
-  CharacterStateSchema,
-  CharacterStateType,
-} from "@/lib/zod/Motdle/CharacterState.schema";
 import { LineType } from "@/lib/zod/Motdle/Line.schema";
 import styles from "@/styles/Key.module.css";
 import { Group, Kbd } from "@mantine/core";
+import GetStyle from "./GetStyle";
 
 interface CellsProps {
   gameBoard: LineType[];
   disableCursor?: boolean;
+  isHoverable?: boolean;
   onKeyActivated?: (key: string) => void;
 }
 
 const Cells = (props: CellsProps) => {
-  const GetStyle = (state: CharacterStateType) => {
-    switch (state) {
-      case CharacterStateSchema.Enum.present:
-        return styles.present;
-      case CharacterStateSchema.Enum.absent:
-        return styles.absent;
-      case CharacterStateSchema.Enum.correct:
-        return styles.correct;
-      case CharacterStateSchema.Enum.idle:
-        return styles.idle;
-    }
-  };
-
   useKeyPress((keyEvent) =>
     props.onKeyActivated
       ? props.onKeyActivated(keyEvent.key.toUpperCase())
@@ -42,7 +27,7 @@ const Cells = (props: CellsProps) => {
           <Kbd
             id={rowIndex + "-" + cellIndex}
             key={cellIndex}
-            className={`${style} ${styles.key}`}
+            className={`${style} ${styles.key} ${props.isHoverable && styles.hover}`}
             style={props.disableCursor ? { cursor: "not-allowed" } : {}}
             size="xl"
             mih="xl"

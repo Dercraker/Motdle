@@ -7,6 +7,13 @@
   user-select: none;
 }
 
+.hover {
+  &:hover {
+    background-color: #3d3d3d;
+    transform: translateY(2px);
+  }
+}
+
 .idle {
   background-color: #2d2d2d;
 }

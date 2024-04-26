@@ -57,6 +57,7 @@ const KeyBoard = ({
       <Stack>
         <Cells
           gameBoard={keyBoard}
+          isHoverable
           onKeyActivated={isEventListenerEnabled ? AddCharacter : () => {}}
         />
       </Stack>

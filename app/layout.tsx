@@ -1,5 +1,5 @@
-import { SiteConfig } from "@/site-config";
 import { LayoutParams } from "@/types/next";
+import { SiteConfig } from "@/utils/site-config";
 import { ColorSchemeScript } from "@mantine/core";
 
 import { Metadata } from "next";

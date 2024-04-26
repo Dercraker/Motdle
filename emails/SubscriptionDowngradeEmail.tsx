@@ -1,5 +1,5 @@
 import { getServerUrl } from "@/lib/server-url";
-import { SiteConfig } from "@/site-config";
+import { SiteConfig } from "@/utils/site-config";
 import { Preview, Section, Text } from "@react-email/components";
 import Link from "next/link";
 import { EmailLayout } from "./utils/EmailLayout";

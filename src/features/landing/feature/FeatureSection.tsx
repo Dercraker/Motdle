@@ -1,4 +1,4 @@
-import { Stack } from "@mantine/core";
+import { Group } from "@mantine/core";
 import FeatureCard, { FeatureCardProps } from "./FeatureCard";
 
 interface featureSectionProps {
@@ -7,11 +7,11 @@ interface featureSectionProps {
 
 const FeatureSection = ({ features }: featureSectionProps) => {
   return (
-    <Stack>
+    <Group justify="space-evenly" align="start">
       {features.map((card, index) => {
         return <FeatureCard key={index} {...card} />;
       })}
-    </Stack>
+    </Group>
   );
 };
 

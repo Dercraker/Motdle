@@ -1,10 +1,15 @@
 "use client";
 
+import { ButtonProps } from "@mantine/core";
 import { useSession } from "next-auth/react";
 import { LoggedInButton } from "./LoggedInButton";
 import { SignInButton } from "./SignInButton";
 
-export const AuthButtonClient = () => {
+interface AuthButtonClientProps {
+  buttonProps?: ButtonProps;
+}
+
+export const AuthButtonClient = ({ buttonProps }: AuthButtonClientProps) => {
   const session = useSession();
 
   if (session.data?.user) {
@@ -12,5 +17,5 @@ export const AuthButtonClient = () => {
     return <LoggedInButton user={user} />;
   }
 
-  return <SignInButton />;
+  return <SignInButton buttonProps={buttonProps} />;
 };

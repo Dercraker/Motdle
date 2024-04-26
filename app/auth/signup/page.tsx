@@ -1,5 +1,5 @@
 import { auth } from "@/lib/auth/helper";
-import { SiteConfig } from "@/site-config";
+import { SiteConfig } from "@/utils/site-config";
 import { redirect } from "next/navigation";
 import { SignUpCard } from "./SignUpCard";
 

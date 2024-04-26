@@ -1,8 +1,8 @@
 "use client";
 
 import { LogoSvg } from "@/components/svg/LogoSvg";
-import { SiteConfig } from "@/site-config";
 import classes from "@/styles/LandingFooter.module.css";
+import { SiteConfig } from "@/utils/site-config";
 import { Anchor, Container, Group, Title } from "@mantine/core";
 import { IconBrandGithub, IconMail } from "@tabler/icons-react";
 

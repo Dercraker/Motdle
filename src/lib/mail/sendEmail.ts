@@ -1,6 +1,6 @@
-import { env } from "@/lib/server";
 import { resend } from "@/lib/mail/resend";
-import { SiteConfig } from "@/site-config";
+import { env } from "@/lib/server";
+import { SiteConfig } from "@/utils/site-config";
 
 type ResendSendType = typeof resend.emails.send;
 type ResendParamsType = Parameters<ResendSendType>;

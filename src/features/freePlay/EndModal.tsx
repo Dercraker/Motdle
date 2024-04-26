@@ -13,7 +13,7 @@ const EndModal = ({ isGameEnd, gameStatus, restartNewGame }: EndModalProps) => {
   return (
     <>
       <Modal.Root opened={isGameEnd} onClose={() => {}} centered>
-        <Modal.Overlay />
+        <Modal.Overlay backgroundOpacity={0.55} blur={3} />
         <Modal.Content>
           <Modal.Header>
             <Modal.Title>Modal title</Modal.Title>

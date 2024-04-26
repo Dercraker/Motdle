@@ -2,20 +2,9 @@
 
 import { LogoSvgWhite } from "@/components/svg/LogoSvgWhite";
 import useCookie from "@/hooks/useCookie";
-import styles from "@/styles/Key.module.css";
-import {
-  Button,
-  Checkbox,
-  Group,
-  Kbd,
-  Modal,
-  Stack,
-  Text,
-  Title,
-} from "@mantine/core";
+import { Button, Checkbox, Group, Modal, Stack, Title } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { IconPlayerPlay, IconX } from "@tabler/icons-react";
-import { WordleExemple } from "./WordleExemple";
 
 export const TipsModal = () => {
   const { GetCookie, SaveCookieWithExpireTime, DeleteCookie } = useCookie();

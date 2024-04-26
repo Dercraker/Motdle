@@ -1,4 +1,4 @@
-import { SiteConfig } from "@/site-config";
+import { SiteConfig } from "@/utils/site-config";
 // import MagicLinkMail from "@email/MagicLinkEmail";
 import { logger } from "@/lib/logger";
 import { sendEmail } from "@/lib/mail/sendEmail";

@@ -1,9 +1,13 @@
 "use client";
 
 import { useHref } from "@/hooks/useHref";
-import { Button } from "@mantine/core";
+import { Button, ButtonProps } from "@mantine/core";
 
-export const SignInButton = () => {
+interface SignInButtonProps {
+  buttonProps?: ButtonProps;
+}
+
+export const SignInButton = ({ buttonProps }: SignInButtonProps) => {
   const href = useHref();
 
   return (
@@ -12,6 +16,7 @@ export const SignInButton = () => {
       href={`/auth/signin?callbackUrl=${href}`}
       variant="outline"
       radius="md"
+      {...buttonProps}
     >
       Sign in
     </Button>

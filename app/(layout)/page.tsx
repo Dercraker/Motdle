@@ -1,17 +1,20 @@
-import { LandingHeader } from "@/components/layout/header/LandingHeader";
-import LandingDetail from "@/features/landing/LandingDetail";
+import MotdleDetail from "@/features/landing/LandingDetail";
+import MotdleExamples from "@/features/landing/MotdleExmples";
 import FeatureSection from "@/features/landing/feature/FeatureSection";
+import { Space, Stack } from "@mantine/core";
 
 const RoutePage = () => {
   return (
-    <>
-      <LandingHeader />
+    <Stack align="center">
+      <MotdleDetail />
+      <Space h="xl" />
 
-      <LandingDetail />
+      <MotdleExamples />
+      <Space h="xl" />
+
       <FeatureSection
         features={[
           {
-            align: "left",
             feature: {
               title: "Jouez à volonté",
               description:
@@ -23,7 +26,6 @@ const RoutePage = () => {
             },
           },
           {
-            align: "right",
             feature: {
               title: "Défiez vos amis",
               description:
@@ -34,11 +36,12 @@ const RoutePage = () => {
                 "Classement des meilleurs joueurs",
                 "Partagez votre score sur les réseaux sociaux",
               ],
+              badge: "bientôt disponible",
             },
           },
         ]}
       />
-    </>
+    </Stack>
   );
 };
 
