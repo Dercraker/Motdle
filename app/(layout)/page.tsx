@@ -15,29 +15,26 @@ const RoutePage = () => {
       <FeatureSection
         features={[
           {
-            feature: {
-              title: "Jouez à volonté",
-              description:
-                "Autemps de parties que vous voulez, quand vous voulez !",
-              features: [
-                "Un nombre illimité de parties !",
-                "Des mots aléatoires à chaque partie",
-              ],
-            },
+            title: "Jouez à volonté",
+            description:
+              "Autemps de parties que vous voulez, quand vous voulez !",
+            features: [
+              "Un nombre illimité de parties !",
+              "Des mots aléatoires à chaque partie",
+            ],
+            redirectOnClick: "/freeplay",
           },
           {
-            feature: {
-              title: "Défiez vos amis",
-              description:
-                "Une seule partie par jour est possible, alors soyez stratégique !",
-              features: [
-                "Un nouveau mot par jour",
-                "Une seule partie par jour",
-                "Classement des meilleurs joueurs",
-                "Partagez votre score sur les réseaux sociaux",
-              ],
-              badge: "bientôt disponible",
-            },
+            title: "Défiez vos amis",
+            description:
+              "Une seule partie par jour est possible, alors soyez stratégique !",
+            features: [
+              "Un nouveau mot par jour",
+              "Une seule partie par jour",
+              "Classement des meilleurs joueurs",
+              "Partagez votre score sur les réseaux sociaux",
+            ],
+            badge: "bientôt disponible",
           },
         ]}
       />
