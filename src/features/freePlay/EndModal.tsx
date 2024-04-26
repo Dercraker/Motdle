@@ -16,7 +16,7 @@ const EndModal = ({ isGameEnd, gameStatus, restartNewGame }: EndModalProps) => {
         <Modal.Overlay backgroundOpacity={0.55} blur={3} />
         <Modal.Content>
           <Modal.Header>
-            <Modal.Title>Modal title</Modal.Title>
+            <Modal.Title>Fin de la partie !</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Stack>

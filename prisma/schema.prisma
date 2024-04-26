@@ -70,7 +70,7 @@ model User {
 
 model Word {
   id String @id @unique @default(cuid())
-  word String @unique @db.VarChar(5)
+  word String @unique
   WordOfTheDay WordOfTheDay[]
   Party Party[]
 }
