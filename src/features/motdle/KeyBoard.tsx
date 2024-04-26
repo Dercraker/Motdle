@@ -10,7 +10,7 @@ interface KeyBoardProps {
   AddCharacter: (key: string) => void;
 }
 
-const KeyBoardV2 = ({
+const KeyBoard = ({
   gameBoard,
   AddCharacter,
   isEventListenerEnabled,
@@ -64,4 +64,4 @@ const KeyBoardV2 = ({
   );
 };
 
-export default KeyBoardV2;
+export default KeyBoard;

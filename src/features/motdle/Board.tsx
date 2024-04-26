@@ -7,7 +7,7 @@ interface BoardV2Props {
   gameBoard: LineType[];
 }
 
-const BoardV2 = ({ gameBoard }: BoardV2Props) => {
+const Board = ({ gameBoard }: BoardV2Props) => {
   return (
     <Container>
       <Stack>
@@ -17,4 +17,4 @@ const BoardV2 = ({ gameBoard }: BoardV2Props) => {
   );
 };
 
-export default BoardV2;
+export default Board;
