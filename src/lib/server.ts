@@ -21,6 +21,9 @@ export const env = createEnv({
     // Resend
     RESEND_AUDIENCE_ID: z.string(),
     RESEND_API_KEY: z.string(),
+
+    // Vercel
+    CRON_SECRET: z.string(),
   },
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
@@ -34,5 +37,6 @@ export const env = createEnv({
     NODE_ENV: process.env.NODE_ENV,
     RESEND_AUDIENCE_ID: process.env.RESEND_AUDIENCE_ID,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
+    CRON_SECRET: process.env.CRON_SECRET,
   },
 });

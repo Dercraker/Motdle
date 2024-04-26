@@ -13,6 +13,11 @@ export const LandingHeaderLinks: NavigationLink[] = [
     icon: <IconHome />,
   },
   {
+    label: "Partie Quotidienne",
+    href: "/connectplay",
+    icon: <IconDeviceGamepad2 />,
+  },
+  {
     label: "Partie Illimité",
     href: "/freeplay",
     icon: <IconDeviceGamepad2 />,

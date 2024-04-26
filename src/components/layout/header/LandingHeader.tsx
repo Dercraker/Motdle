@@ -27,7 +27,7 @@ export const LandingHeader = ({ opened, toggle }: LandingHeaderProps) => {
       <UnstyledButton
         key={link.label}
         className={styles.control}
-        onClick={() => router.push(link.href)}
+        onClick={() => handleClickMenuLink(link.href)}
       >
         <Group gap="3px">
           {link.icon}
