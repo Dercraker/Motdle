@@ -41,7 +41,6 @@ const ConnectMotdle = ({ wantedSlug, partyId }: ConnectMotdleProps) => {
     const newGameBoard: LineType[] = Array.from({ length: 6 }, createLine);
 
     const { data, serverError } = await GetPartyOfTheDayAction(null);
-    console.log("🚀 ~ handleInitGame ~ data:", data);
 
     if (serverError) return ErrorNotify({ message: serverError });
 

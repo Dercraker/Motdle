@@ -47,7 +47,6 @@ const StatusCard = ({ userId, LoadParty }: StatusCardProps) => {
     staleTime: -1,
   });
 
-  console.log("🚀 ~ StatusCard ~ party:", party);
   const { data: dayCount, isPending: fetchDayCount } = useQuery({
     queryKey: ["DayCount"],
     queryFn: async () =>
@@ -56,7 +55,6 @@ const StatusCard = ({ userId, LoadParty }: StatusCardProps) => {
         .catch((error) => ErrorNotify({ title: error.message })),
     staleTime: moment().endOf("day").diff(moment()),
   });
-  console.log("🚀 ~ StatusCard ~ party:", party);
 
   const createNewGameMutation = useMutation({
     mutationFn: async ([userId]: [string]) => {
