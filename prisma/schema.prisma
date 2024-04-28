@@ -77,7 +77,7 @@ model Word {
 
 model WordOfTheDay {
   id String @id @unique @default(cuid())
-  day DateTime
+  date DateTime @default(now())
   word Word @relation(fields: [wordId], references: [id])
   parties Party[]
   wordId String
@@ -85,17 +85,17 @@ model WordOfTheDay {
 
 model Score {
   id String @id @unique @default(cuid())
-  date DateTime
+  date DateTime @default(now())
   user User @relation(fields: [userId], references: [id])
-  party Party @relation(fields: [partyId], references: [id])
-  result Int
+  party Party @relation(fields: [partyId], references: [id], onDelete: Cascade)
+  result ScoreState @default(idle)
   userId String
   partyId String @unique
 }
 
 model Party {
   id String @id @unique @default(cuid())
-  playDate DateTime
+  playDate DateTime @default(now())
   user User @relation(fields: [userId], references: [id])
   connectedParty Boolean @default(false)
   wordOfTheDay WordOfTheDay? @relation(fields: [wordOfTheDayId], references: [id])
@@ -111,20 +111,28 @@ model Line {
   id String @id @unique @default(cuid())
   lineNumber Int
   characters Charactere[]
-  party Party? @relation(fields: [partyId], references: [id])
+  party Party? @relation(fields: [partyId], references: [id], onDelete: Cascade)
   partyId String?
 }
 
 model Charactere {
   id String @id @unique @default(cuid())
-  line Line @relation(fields: [lineId], references: [id])
+  line Line @relation(fields: [lineId], references: [id], onDelete: Cascade)
   letter String
   state characterState
   lineId String
 }
 
 enum characterState {
-  NotPresent
-  BadPlace
-  GoodPlace
+  idle
+  correct
+  present
+  absent
+}
+
+enum ScoreState {
+  idle
+  playing
+  win
+  lose
 }

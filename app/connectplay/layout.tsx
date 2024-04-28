@@ -1,8 +1,9 @@
 "use client";
 
 import { LandingFooter } from "@/components/layout/footer/LandingFooter";
-import { LandingHeader } from "@/components/layout/header/LandingHeader";
+import { Header } from "@/components/layout/header/Header";
 import { LayoutParams } from "@/types/next";
+import { ConnectHeaderLinks } from "@/utils/navigationLink";
 import { AppShell } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { Suspense } from "react";
@@ -20,7 +21,11 @@ const RootLayout = ({ children }: LayoutParams<{}>) => {
       }}
       padding="md"
     >
-      <LandingHeader opened={opened} toggle={toggle} />
+      <Header
+        opened={opened}
+        toggle={toggle}
+        headerLinks={ConnectHeaderLinks}
+      />
 
       <AppShell.Main>
         <Suspense>{children}</Suspense>

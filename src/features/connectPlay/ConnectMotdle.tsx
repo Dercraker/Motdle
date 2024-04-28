@@ -1,34 +1,37 @@
-"use client";
-
 import useNotify from "@/hooks/useNotify";
-import { validateMotdleRowAction } from "@/lib/server-actions/validateMotdleRow.action";
+import { ValidateConnectMotdleRowAction } from "@/lib/server-actions/connectPlay/ConnectRowValidation.action";
+import { GetGameBoardAction } from "@/lib/server-actions/connectPlay/GetGameBoard.action";
+import { endGameAction } from "@/lib/server-actions/connectPlay/endGame.action";
 import { CharacterStateSchema } from "@/lib/zod/Motdle/CharacterState.schema";
 import {
   GameStatusSchema,
   GameStatusType,
 } from "@/lib/zod/Motdle/GameStatus.schema";
 import { LineType } from "@/lib/zod/Motdle/Line.schema";
-import { RowValidationType } from "@/lib/zod/Motdle/RowValidation.schema";
+import { ConnectRowValidationType } from "@/lib/zod/connectPlay/ConnectRowValidation.schema";
 import { Space, Stack } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import { useEffect, useState } from "react";
-import Board from "./Board";
-import KeyBoard from "./KeyBoard";
+import Board from "../motdle/Board";
+import KeyBoard from "../motdle/KeyBoard";
+import ConnectEndModal from "./ConnectEndModal";
 
-interface MotdleProps {
-  wantedWord: string;
-  endGame: (gameStatus: GameStatusType) => void;
+interface ConnectMotdleProps {
+  wantedSlug: string;
+  partyId: string;
 }
 
-const Motdle = ({ wantedWord, endGame }: MotdleProps) => {
+const ConnectMotdle = ({ wantedSlug, partyId }: ConnectMotdleProps) => {
   const [gameBoard, setGameBoard] = useState<LineType[]>([]);
   const [currentRowIdx, setCurrentRowIdx] = useState<number>(0);
   const [gameStatus, setGameStatus] = useState<GameStatusType>(
-    GameStatusSchema.Enum.idle,
+    GameStatusSchema.enum.idle,
   );
+  const [endGameModal, { toggle: toggleEndGameModal }] = useDisclosure(false);
 
   const { ErrorNotify } = useNotify();
 
-  const handleInitGame = () => {
+  const handleInitGame = async () => {
     const createLine = () =>
       Array.from({ length: 5 }, () => ({
         character: "_",
@@ -37,15 +40,42 @@ const Motdle = ({ wantedWord, endGame }: MotdleProps) => {
 
     const newGameBoard: LineType[] = Array.from({ length: 6 }, createLine);
 
+    const { data, serverError } = await GetGameBoardAction(null);
+
+    if (serverError) return ErrorNotify({ message: serverError });
+
+    data?.map((line, index) => {
+      newGameBoard[index] = line.characters.map((char) => ({
+        character: char.letter,
+        state: char.state,
+      }));
+    });
+
+    let firstRowEdit = -1;
+    newGameBoard.forEach((row, index) => {
+      if (firstRowEdit === -1 && row.every((cell) => cell.character === "_"))
+        firstRowEdit = index;
+    });
+    if (firstRowEdit !== -1) {
+      let isWin = false;
+      newGameBoard.map((row) => {
+        if (
+          row.every((cell) => cell.state === CharacterStateSchema.Enum.correct)
+        )
+          isWin = true;
+      });
+
+      if (isWin) setGameStatus(GameStatusSchema.Enum.win);
+      else setGameStatus(GameStatusSchema.Enum.lose);
+    } else setGameStatus(GameStatusSchema.Enum.playing);
+
     setGameBoard(newGameBoard);
-    setCurrentRowIdx(0);
-    setGameStatus(GameStatusSchema.Enum.playing);
+    setCurrentRowIdx(firstRowEdit === -1 ? 6 : firstRowEdit);
   };
 
   useEffect(() => {
-    handleInitGame();
-    console.log("🚀 ~ useEffect ~ handleInitGame:", handleInitGame);
-  }, [wantedWord]);
+    (async () => await handleInitGame())();
+  }, [wantedSlug]);
 
   const AddCharacter = (key: string) => {
     const currentRow = gameBoard[currentRowIdx];
@@ -95,11 +125,11 @@ const Motdle = ({ wantedWord, endGame }: MotdleProps) => {
       return ErrorNotify({ message: "Veuillez remplir la ligne" });
 
     const { data: lineValidationResponse, serverError } =
-      await validateMotdleRowAction({
+      await ValidateConnectMotdleRowAction({
         row: currentRow,
-        slug: wantedWord,
-      } as RowValidationType);
-
+        slug: wantedSlug,
+        party: partyId,
+      } as ConnectRowValidationType);
     if (serverError) return ErrorNotify({ message: serverError });
 
     if (
@@ -127,11 +157,15 @@ const Motdle = ({ wantedWord, endGame }: MotdleProps) => {
   };
 
   useEffect(() => {
-    if (
-      gameStatus === GameStatusSchema.Enum.win ||
-      gameStatus === GameStatusSchema.Enum.lose
-    )
-      return endGame(gameStatus);
+    (async () => {
+      if (
+        gameStatus === GameStatusSchema.Enum.win ||
+        gameStatus === GameStatusSchema.Enum.lose
+      ) {
+        await endGameAction(gameStatus);
+        toggleEndGameModal();
+      }
+    })();
   }, [gameStatus]);
 
   const handleClickKey = (key: string) => {
@@ -158,8 +192,13 @@ const Motdle = ({ wantedWord, endGame }: MotdleProps) => {
           isEventListenerEnabled={gameStatus === GameStatusSchema.Enum.playing}
         />
       </Stack>
+      <ConnectEndModal
+        isOpened={endGameModal}
+        gameStatus={gameStatus}
+        closeModal={toggleEndGameModal}
+      />
     </>
   );
 };
 
-export default Motdle;
+export default ConnectMotdle;
