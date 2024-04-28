@@ -41,6 +41,7 @@ const ConnectMotdle = ({ wantedSlug, partyId }: ConnectMotdleProps) => {
     const newGameBoard: LineType[] = Array.from({ length: 6 }, createLine);
 
     const { data, serverError } = await GetGameBoardAction(null);
+
     if (serverError) return ErrorNotify({ message: serverError });
 
     data?.map((line, index) => {
@@ -55,14 +56,16 @@ const ConnectMotdle = ({ wantedSlug, partyId }: ConnectMotdleProps) => {
       if (firstRowEdit === -1 && row.every((cell) => cell.character === "_"))
         firstRowEdit = index;
     });
-
-    if (firstRowEdit === -1) {
-      if (
-        newGameBoard[5].every(
-          (cell) => cell.state === CharacterStateSchema.Enum.correct,
+    if (firstRowEdit !== -1) {
+      let isWin = false;
+      newGameBoard.map((row) => {
+        if (
+          row.every((cell) => cell.state === CharacterStateSchema.Enum.correct)
         )
-      )
-        setGameStatus(GameStatusSchema.Enum.win);
+          isWin = true;
+      });
+
+      if (isWin) setGameStatus(GameStatusSchema.Enum.win);
       else setGameStatus(GameStatusSchema.Enum.lose);
     } else setGameStatus(GameStatusSchema.Enum.playing);
 
@@ -127,11 +130,6 @@ const ConnectMotdle = ({ wantedSlug, partyId }: ConnectMotdleProps) => {
         slug: wantedSlug,
         party: partyId,
       } as ConnectRowValidationType);
-    console.log(
-      "🚀 ~ ValidateRow ~ lineValidationResponse:",
-      lineValidationResponse,
-    );
-
     if (serverError) return ErrorNotify({ message: serverError });
 
     if (
