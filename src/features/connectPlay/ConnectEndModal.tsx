@@ -1,3 +1,4 @@
+import ConfettiComponent from "@/components/ui/ConfettiComponent";
 import {
   GameStatusSchema,
   GameStatusType,
@@ -40,6 +41,7 @@ const ConnectEndModal = ({
           </Modal.Body>
         </Modal.Content>
       </Modal.Root>
+      {gameStatus === GameStatusSchema.enum.win && <ConfettiComponent />}
     </>
   );
 };

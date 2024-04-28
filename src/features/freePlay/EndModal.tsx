@@ -1,3 +1,4 @@
+import ConfettiComponent from "@/components/ui/ConfettiComponent";
 import {
   GameStatusSchema,
   GameStatusType,
@@ -21,7 +22,9 @@ const EndModal = ({ isGameEnd, gameStatus, restartNewGame }: EndModalProps) => {
           <Modal.Body>
             <Stack>
               {gameStatus === GameStatusSchema.enum.win ? (
-                <Text>Bravo tu à trouver le mot.</Text>
+                <>
+                  <Text>Bravo tu à trouver le mot.</Text>
+                </>
               ) : (
                 <Text>Dommage, tu as perdu.</Text>
               )}
@@ -35,6 +38,7 @@ const EndModal = ({ isGameEnd, gameStatus, restartNewGame }: EndModalProps) => {
           </Modal.Body>
         </Modal.Content>
       </Modal.Root>
+      {gameStatus === GameStatusSchema.enum.win && <ConfettiComponent />}
     </>
   );
 };
