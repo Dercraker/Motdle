@@ -1,6 +1,6 @@
 import { AvatarImage } from "@/components/ui/avatar";
 import { ActionIcon, Group, Menu, Text, rem } from "@mantine/core";
-import { IconChevronRight, IconSettings } from "@tabler/icons-react";
+import { IconChevronRight } from "@tabler/icons-react";
 import { User } from "next-auth";
 import { ReactNode } from "react";
 import { LogoutButton } from "./LogoutButton";
@@ -34,8 +34,8 @@ export const UserDropDown = (props: UserDropDownProps) => {
                 stroke={1.5}
               />
             }
-            component="a"
-            href="/account"
+            // component="a"
+            // href="/account"
           >
             <Group>
               <AvatarImage user={props.user} />
@@ -50,8 +50,8 @@ export const UserDropDown = (props: UserDropDownProps) => {
 
           <Menu.Divider />
 
-          <Menu.Label>Application</Menu.Label>
-          {/* <Menu.Item
+          {/* <Menu.Label>Application</Menu.Label>
+          <Menu.Item
             leftSection={
               <IconStar
                 style={{ width: rem(16), height: rem(16) }}
@@ -64,7 +64,7 @@ export const UserDropDown = (props: UserDropDownProps) => {
           </Menu.Item> */}
 
           <Menu.Label>Settings</Menu.Label>
-          <Menu.Item
+          {/* <Menu.Item
             leftSection={
               <IconSettings
                 style={{ width: rem(16), height: rem(16) }}
@@ -75,7 +75,7 @@ export const UserDropDown = (props: UserDropDownProps) => {
             href="/account"
           >
             Account settings
-          </Menu.Item>
+          </Menu.Item> */}
           <LogoutButton />
         </Menu.Dropdown>
       </Menu>
