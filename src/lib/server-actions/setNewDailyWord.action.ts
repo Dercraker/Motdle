@@ -3,6 +3,7 @@
 import { prisma } from "@/lib/prisma";
 import { action } from "@/lib/server-actions/safe-actions";
 import { SetNewDailyWordScheme } from "@/lib/zod/setNewDailyWord.schema";
+import moment from "moment";
 import { logger } from "../logger";
 
 export const setNewDailyWordAction = action(SetNewDailyWordScheme, async () => {
@@ -21,9 +22,12 @@ export const setNewDailyWordAction = action(SetNewDailyWordScheme, async () => {
     throw new Error("No new words available");
   }
 
+  const currentDate = moment().utc(true).startOf("day").format();
+  console.log("🚀 ~ setNewDailyWordAction ~ currentDate:", currentDate);
+
   await prisma.wordOfTheDay.create({
     data: {
-      day: new Date(),
+      date: currentDate,
       word: {
         connect: {
           id: newWord.id,

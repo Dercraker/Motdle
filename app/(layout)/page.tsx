@@ -35,6 +35,7 @@ const RoutePage = () => {
               "Partagez votre score sur les réseaux sociaux",
             ],
             badge: "bientôt disponible",
+            redirectOnClick: "/connectplay",
           },
         ]}
       />
