@@ -47,6 +47,7 @@ const StatusCard = ({ userId, LoadParty }: StatusCardProps) => {
     staleTime: -1,
   });
 
+  console.log("🚀 ~ StatusCard ~ party:", party);
   const { data: dayCount, isPending: fetchDayCount } = useQuery({
     queryKey: ["DayCount"],
     queryFn: async () =>
@@ -87,13 +88,12 @@ const StatusCard = ({ userId, LoadParty }: StatusCardProps) => {
                   Status :{" "}
                   {party?.data == null
                     ? "Non commencer"
-                    : party.data?.score?.result !== ScoreState.idle &&
-                        party.data?.score?.result !== ScoreState.playing
+                    : party.data?.score?.result !== ScoreState.playing
                       ? "Finie"
                       : "En cours"}
                 </Text>
                 {party?.data != null &&
-                  party.data?.score?.result !== ScoreState.idle && (
+                  party.data?.score?.result !== ScoreState.playing && (
                     <Text>
                       Résultat :{" "}
                       {party.data?.score?.result === ScoreState.win
@@ -105,7 +105,7 @@ const StatusCard = ({ userId, LoadParty }: StatusCardProps) => {
                 <TimeLeftBefore
                   label={
                     party?.data == null ||
-                    party?.data?.score?.result !== ScoreState.idle
+                    party?.data?.score?.result !== ScoreState.playing
                       ? "Temps avant le prochain mot :"
                       : "Temps restant pour finir la partie :"
                   }

@@ -55,7 +55,7 @@ export const CreateNewGameAction = userAction(
                 id: input.userId,
               },
             },
-            result: GameStatusSchema.enum.idle,
+            result: GameStatusSchema.enum.playing,
           },
         },
       },

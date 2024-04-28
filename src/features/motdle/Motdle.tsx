@@ -23,7 +23,7 @@ const Motdle = ({ wantedWord, endGame }: MotdleProps) => {
   const [gameBoard, setGameBoard] = useState<LineType[]>([]);
   const [currentRowIdx, setCurrentRowIdx] = useState<number>(0);
   const [gameStatus, setGameStatus] = useState<GameStatusType>(
-    GameStatusSchema.Enum.idle,
+    GameStatusSchema.Enum.playing,
   );
 
   const { ErrorNotify } = useNotify();
@@ -102,6 +102,10 @@ const Motdle = ({ wantedWord, endGame }: MotdleProps) => {
 
     if (serverError) return ErrorNotify({ message: serverError });
 
+    if (!lineValidationResponse)
+      return ErrorNotify({
+        title: "Une erreur est survenue dans la validation de la ligne",
+      });
     if (
       lineValidationResponse?.every(
         (cell) => cell?.state === CharacterStateSchema.enum.correct,
@@ -116,6 +120,11 @@ const Motdle = ({ wantedWord, endGame }: MotdleProps) => {
       )
     )
       setGameStatus(GameStatusSchema.Enum.lose);
+
+    console.log(
+      "🚀 ~ ValidateRow ~ lineValidationResponse:",
+      lineValidationResponse,
+    );
 
     const newGameBoard = gameBoard.map((row, rowIndex) =>
       rowIndex === currentRowIdx ? (lineValidationResponse as LineType) : row,

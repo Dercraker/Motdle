@@ -1,6 +1,6 @@
 import useNotify from "@/hooks/useNotify";
 import { ValidateConnectMotdleRowAction } from "@/lib/server-actions/connectPlay/ConnectRowValidation.action";
-import { GetGameBoardAction } from "@/lib/server-actions/connectPlay/GetGameBoard.action";
+import { GetPartyOfTheDayAction } from "@/lib/server-actions/connectPlay/GetPartyOfTheDay.action";
 import { endGameAction } from "@/lib/server-actions/connectPlay/endGame.action";
 import { CharacterStateSchema } from "@/lib/zod/Motdle/CharacterState.schema";
 import {
@@ -25,7 +25,7 @@ const ConnectMotdle = ({ wantedSlug, partyId }: ConnectMotdleProps) => {
   const [gameBoard, setGameBoard] = useState<LineType[]>([]);
   const [currentRowIdx, setCurrentRowIdx] = useState<number>(0);
   const [gameStatus, setGameStatus] = useState<GameStatusType>(
-    GameStatusSchema.enum.idle,
+    GameStatusSchema.enum.playing,
   );
   const [endGameModal, { toggle: toggleEndGameModal }] = useDisclosure(false);
 
@@ -40,11 +40,12 @@ const ConnectMotdle = ({ wantedSlug, partyId }: ConnectMotdleProps) => {
 
     const newGameBoard: LineType[] = Array.from({ length: 6 }, createLine);
 
-    const { data, serverError } = await GetGameBoardAction(null);
+    const { data, serverError } = await GetPartyOfTheDayAction(null);
+    console.log("🚀 ~ handleInitGame ~ data:", data);
 
     if (serverError) return ErrorNotify({ message: serverError });
 
-    data?.map((line, index) => {
+    data?.lines?.map((line, index) => {
       newGameBoard[index] = line.characters.map((char) => ({
         character: char.letter,
         state: char.state,
@@ -56,21 +57,13 @@ const ConnectMotdle = ({ wantedSlug, partyId }: ConnectMotdleProps) => {
       if (firstRowEdit === -1 && row.every((cell) => cell.character === "_"))
         firstRowEdit = index;
     });
-    if (firstRowEdit !== -1) {
-      let isWin = false;
-      newGameBoard.map((row) => {
-        if (
-          row.every((cell) => cell.state === CharacterStateSchema.Enum.correct)
-        )
-          isWin = true;
-      });
+    setCurrentRowIdx(firstRowEdit === -1 ? 6 : firstRowEdit);
 
-      if (isWin) setGameStatus(GameStatusSchema.Enum.win);
-      else setGameStatus(GameStatusSchema.Enum.lose);
-    } else setGameStatus(GameStatusSchema.Enum.playing);
+    setGameStatus(
+      data?.score?.result ? data.score.result : GameStatusSchema.Enum.playing,
+    );
 
     setGameBoard(newGameBoard);
-    setCurrentRowIdx(firstRowEdit === -1 ? 6 : firstRowEdit);
   };
 
   useEffect(() => {
