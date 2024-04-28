@@ -44,7 +44,6 @@ const Motdle = ({ wantedWord, endGame }: MotdleProps) => {
 
   useEffect(() => {
     handleInitGame();
-    console.log("🚀 ~ useEffect ~ handleInitGame:", handleInitGame);
   }, [wantedWord]);
 
   const AddCharacter = (key: string) => {
@@ -120,11 +119,6 @@ const Motdle = ({ wantedWord, endGame }: MotdleProps) => {
       )
     )
       setGameStatus(GameStatusSchema.Enum.lose);
-
-    console.log(
-      "🚀 ~ ValidateRow ~ lineValidationResponse:",
-      lineValidationResponse,
-    );
 
     const newGameBoard = gameBoard.map((row, rowIndex) =>
       rowIndex === currentRowIdx ? (lineValidationResponse as LineType) : row,

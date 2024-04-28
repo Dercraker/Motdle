@@ -5,7 +5,6 @@ export const GET = async (req: Request) => {
   const { searchParams } = new URL(req.url);
   const slug = searchParams.get("slug");
   const word = await GetWordBySlugAction(slug as string);
-  console.log("🚀 ~ GET ~ word:", word);
 
   if (word.serverError)
     return NextResponse.json({

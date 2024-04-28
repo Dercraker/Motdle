@@ -16,14 +16,12 @@ export const setNewDailyWordAction = action(SetNewDailyWordScheme, async () => {
       },
     },
   });
-  logger.info("🚀 ~ setNewDailyWordAction ~ newWord", newWord);
 
   if (!newWord) {
     throw new Error("No new words available");
   }
 
   const currentDate = moment().utc(true).startOf("day").format();
-  console.log("🚀 ~ setNewDailyWordAction ~ currentDate:", currentDate);
 
   await prisma.wordOfTheDay.create({
     data: {

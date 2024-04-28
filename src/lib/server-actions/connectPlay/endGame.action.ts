@@ -19,8 +19,6 @@ export const endGameAction = userAction(EndGameSchema, async (input, ctx) => {
     },
   });
   if (!party) throw new ActionError("No party found");
-  console.log("🚀 ~ endGameAction ~ party:", party);
-  console.log("🚀 ~ endGameAction ~ input:", input);
 
   await prisma.score.update({
     where: {
@@ -30,5 +28,4 @@ export const endGameAction = userAction(EndGameSchema, async (input, ctx) => {
       result: input,
     },
   });
-  console.log("🚀 ~ endGameAction ~ party:", party);
 });

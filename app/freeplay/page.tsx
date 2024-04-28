@@ -36,7 +36,6 @@ const RoutePage = () => {
   const handleEndGame = (status: GameStatusType) => {
     setIsEndGame(true);
     setGameStatus(status);
-    console.log("🚀 ~ handleEndGame ~ setGameStatus:", setGameStatus);
   };
 
   const handleRestartNewGame = async () => {
