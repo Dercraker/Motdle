@@ -20,7 +20,11 @@ export const GetPartyOfTheDayAction = authAction(
         playDate: currentDate,
       },
       include: {
-        lines: true,
+        lines: {
+          include: {
+            characters: true,
+          },
+        },
         score: true,
         wordOfTheDay: true,
       },

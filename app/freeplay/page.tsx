@@ -19,7 +19,7 @@ const RoutePage = () => {
   const [gameIsStarted, setGameIsStarted] = useState<boolean>(false);
   const [isEndGame, setIsEndGame] = useState<boolean>(false);
   const [gameStatus, setGameStatus] = useState<GameStatusType>(
-    GameStatusSchema.Enum.idle,
+    GameStatusSchema.Enum.playing,
   );
 
   useEffect(() => {
@@ -47,7 +47,7 @@ const RoutePage = () => {
 
     setSlug(slug);
     setIsEndGame(false);
-    setGameStatus(GameStatusSchema.Enum.idle);
+    setGameStatus(GameStatusSchema.Enum.playing);
   };
 
   return (

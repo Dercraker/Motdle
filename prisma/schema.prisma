@@ -88,7 +88,7 @@ model Score {
   date DateTime @default(now())
   user User @relation(fields: [userId], references: [id])
   party Party @relation(fields: [partyId], references: [id], onDelete: Cascade)
-  result ScoreState @default(idle)
+  result ScoreState @default(playing)
   userId String
   partyId String @unique
 }
@@ -131,7 +131,6 @@ enum characterState {
 }
 
 enum ScoreState {
-  idle
   playing
   win
   lose
