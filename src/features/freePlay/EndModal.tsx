@@ -3,21 +3,33 @@ import {
   GameStatusSchema,
   GameStatusType,
 } from "@/lib/zod/Motdle/GameStatus.schema";
-import { Button, Group, Modal, Stack, Text } from "@mantine/core";
+import { LineType } from "@/lib/zod/Motdle/Line.schema";
+import { Button, Group, Modal, Stack, Text, Title } from "@mantine/core";
+import ScoreSharing from "../motdle/ScoreSharing";
 
 interface EndModalProps {
   isGameEnd: boolean;
   gameStatus: GameStatusType;
+  gameBoard: LineType[];
+  slug: string;
   restartNewGame: () => void;
 }
-const EndModal = ({ isGameEnd, gameStatus, restartNewGame }: EndModalProps) => {
+const EndModal = ({
+  isGameEnd,
+  gameStatus,
+  restartNewGame,
+  gameBoard,
+  slug,
+}: EndModalProps) => {
   return (
     <>
       <Modal.Root opened={isGameEnd} onClose={() => {}} centered>
         <Modal.Overlay backgroundOpacity={0.55} blur={3} />
         <Modal.Content>
           <Modal.Header>
-            <Modal.Title>Fin de la partie !</Modal.Title>
+            <Modal.Title>
+              <Title>Fin de la partie !</Title>
+            </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Stack>
@@ -28,6 +40,11 @@ const EndModal = ({ isGameEnd, gameStatus, restartNewGame }: EndModalProps) => {
               ) : (
                 <Text>Dommage, tu as perdu.</Text>
               )}
+              <ScoreSharing
+                isWin={gameStatus === GameStatusSchema.enum.win}
+                gameBoard={gameBoard}
+                slug={slug}
+              />
               <Group align="center" justify="end">
                 <Button onClick={restartNewGame}>Rejouer</Button>
                 <Button variant="outline" component="a" href="/">

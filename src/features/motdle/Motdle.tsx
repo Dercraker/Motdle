@@ -17,9 +17,10 @@ import KeyBoard from "./KeyBoard";
 interface MotdleProps {
   wantedWord: string;
   endGame: (gameStatus: GameStatusType) => void;
+  endGameBoard: (gameBoard: LineType[]) => void;
 }
 
-const Motdle = ({ wantedWord, endGame }: MotdleProps) => {
+const Motdle = ({ wantedWord, endGame, endGameBoard }: MotdleProps) => {
   const [gameBoard, setGameBoard] = useState<LineType[]>([]);
   const [currentRowIdx, setCurrentRowIdx] = useState<number>(0);
   const [gameStatus, setGameStatus] = useState<GameStatusType>(
@@ -133,8 +134,10 @@ const Motdle = ({ wantedWord, endGame }: MotdleProps) => {
     if (
       gameStatus === GameStatusSchema.Enum.win ||
       gameStatus === GameStatusSchema.Enum.lose
-    )
+    ) {
+      endGameBoard(gameBoard);
       return endGame(gameStatus);
+    }
   }, [gameStatus]);
 
   const handleClickKey = (key: string) => {

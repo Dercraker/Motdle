@@ -9,6 +9,7 @@ import {
   GameStatusSchema,
   GameStatusType,
 } from "@/lib/zod/Motdle/GameStatus.schema";
+import { LineType } from "@/lib/zod/Motdle/Line.schema";
 import { useQueryState } from "nuqs";
 import { useEffect, useState } from "react";
 
@@ -21,6 +22,7 @@ const RoutePage = () => {
   const [gameStatus, setGameStatus] = useState<GameStatusType>(
     GameStatusSchema.Enum.playing,
   );
+  const [endGameBoard, setEndGameBoard] = useState<LineType[]>([]);
 
   useEffect(() => {
     (async () => {
@@ -55,11 +57,17 @@ const RoutePage = () => {
         <Rules StartGame={() => setGameIsStarted(true)} gameIsReady={!slug} />
       ) : (
         <>
-          <Motdle wantedWord={slug} endGame={handleEndGame} />
+          <Motdle
+            wantedWord={slug}
+            endGame={handleEndGame}
+            endGameBoard={setEndGameBoard}
+          />
           <EndModal
             isGameEnd={isEndGame}
             gameStatus={gameStatus}
             restartNewGame={handleRestartNewGame}
+            slug={slug}
+            gameBoard={endGameBoard}
           />
         </>
       )}
