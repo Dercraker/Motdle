@@ -55,6 +55,7 @@ const StatusCard = ({ userId, LoadParty }: StatusCardProps) => {
         .catch((error) => ErrorNotify({ title: error.message })),
     staleTime: moment().endOf("day").diff(moment()),
   });
+  console.log("🚀 ~ StatusCard ~ party:", party);
 
   const createNewGameMutation = useMutation({
     mutationFn: async ([userId]: [string]) => {
@@ -86,7 +87,8 @@ const StatusCard = ({ userId, LoadParty }: StatusCardProps) => {
                   Status :{" "}
                   {party?.data == null
                     ? "Non commencer"
-                    : party?.data?.lines.length === 6
+                    : party.data?.score?.result !== ScoreState.idle &&
+                        party.data?.score?.result !== ScoreState.playing
                       ? "Finie"
                       : "En cours"}
                 </Text>

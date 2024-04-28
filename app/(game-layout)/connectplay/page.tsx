@@ -16,12 +16,12 @@ const RoutePage = () => {
   const [queryParty, setQueryParty] = useQueryState("party");
   const [querySlug, setQuerySlug] = useQueryState("slug");
 
-  // if (!session.data) {
-  //   ErrorNotify({
-  //     message: "Vous devez être connecté pour accéder à cette page",
-  //   });
-  //   route.push("/");
-  // }
+  if (!session.data) {
+    ErrorNotify({
+      message: "Vous devez être connecté pour accéder à cette page",
+    });
+    route.push("/");
+  }
 
   const [displayStatusCard, { close: closeStatusCard }] = useDisclosure(true);
   const [displayGame, { open: openGame }] = useDisclosure(false);

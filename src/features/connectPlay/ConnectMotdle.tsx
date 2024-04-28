@@ -141,7 +141,13 @@ const ConnectMotdle = ({ wantedSlug, partyId }: ConnectMotdleProps) => {
     )
       setGameStatus(GameStatusSchema.Enum.win);
 
-    if (currentRowIdx === 5) setGameStatus(GameStatusSchema.Enum.lose);
+    if (
+      currentRowIdx === 5 &&
+      lineValidationResponse?.some(
+        (cell) => cell?.state !== CharacterStateSchema.enum.correct,
+      )
+    )
+      setGameStatus(GameStatusSchema.Enum.lose);
 
     const newGameBoard = gameBoard.map((row, rowIndex) =>
       rowIndex === currentRowIdx ? (lineValidationResponse as LineType) : row,
