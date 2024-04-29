@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 import { env } from "@/lib/server";
 import { setNewDailyWordAction } from "@/lib/server-actions/setNewDailyWord.action";
 import { NextResponse } from "next/server";

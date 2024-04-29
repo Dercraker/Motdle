@@ -23,7 +23,10 @@ interface ScoreSharingProps {
   isWin: boolean;
   gameBoard: LineType[];
   slug: string;
-  link: string;
+  href: string;
+
+  dayCount?: number;
+  hideWord?: boolean;
 }
 
 const ScoreSharing = (props: ScoreSharingProps) => {
@@ -46,6 +49,7 @@ const ScoreSharing = (props: ScoreSharingProps) => {
       await GetWordBySlugAction(props.slug).catch((err) =>
         ErrorNotify({ title: err }),
       ),
+    enabled: !props.hideWord,
   });
   if (word?.serverError || error)
     ErrorNotify({ title: "Erreur lors de la récupération du mot" });
@@ -81,8 +85,8 @@ const ScoreSharing = (props: ScoreSharingProps) => {
   const gridString = useMemo(() => {
     let stringBuilder = "";
     props.isWin
-      ? (stringBuilder += `J'ai trouver en mot ${word?.data?.word.trim()} en ${attemptCount} tentative\n`)
-      : (stringBuilder += `J'ai perdu à motdle, je n'ai pas trouver le mot ${word?.data?.word.trim()}\n`);
+      ? (stringBuilder += `J'ai trouver le mot ${props.hideWord ? `du jour #${props.dayCount}` : word?.data?.word.trim()} en ${attemptCount} tentative\n`)
+      : (stringBuilder += `J'ai perdu à motdle, je n'ai pas trouver le mot ${props.hideWord ? `du jour #${props.dayCount}` : word?.data?.word.trim()}\n`);
     props.gameBoard.forEach((row) => {
       stringBuilder += row
         .map((cell) => {
@@ -118,15 +122,15 @@ const ScoreSharing = (props: ScoreSharingProps) => {
         <Stack align="center">
           <Group gap="5px">
             {props.isWin
-              ? `J'ai trouver en mot ${word?.data?.word.trim()}
+              ? `J'ai trouver le mot ${props.hideWord ? `du jour #${props.dayCount}` : word?.data?.word.trim()}
             en
             ${attemptCount}
             tentative`
               : `J'ai perdu à motdle, je n'ai pas trouver le mot
-                ${word?.data?.word.trim()}`}
+                ${props.hideWord ? `du jour #${props.dayCount}` : word?.data?.word.trim()}`}
           </Group>
           {grid}
-          <Text fs="italic" c="dimmed">{`${getServerUrl()}/freeplay`}</Text>
+          <Text fs="italic" c="dimmed">{`${getServerUrl()}${props.href}`}</Text>
         </Stack>
       </Paper>
       <Group justify="space-between">

@@ -5,6 +5,7 @@ import useNotify from "@/hooks/useNotify";
 import { CreateNewGameAction } from "@/lib/server-actions/connectPlay/CreateNewGame.action";
 import { GetDayCountAction } from "@/lib/server-actions/connectPlay/GetDayCount.action";
 import { GetPartyOfTheDayAction } from "@/lib/server-actions/connectPlay/GetPartyOfTheDay.action";
+import useConnectGameStore from "@/lib/zustand/ConnectGame.store";
 import {
   Button,
   Center,
@@ -29,6 +30,8 @@ interface StatusCardProps {
 const StatusCard = ({ userId, LoadParty }: StatusCardProps) => {
   const { ErrorNotify } = useNotify();
   const queryClient = useQueryClient();
+  const dayCount = useConnectGameStore((state) => state.dayCount);
+  const SetDayCount = useConnectGameStore((state) => state.SetDayCount);
 
   const [queryParty, setQueryParty] = useQueryState("party");
   const [querySlug, setQuerySlug] = useQueryState("slug");
@@ -47,11 +50,15 @@ const StatusCard = ({ userId, LoadParty }: StatusCardProps) => {
     staleTime: -1,
   });
 
-  const { data: dayCount, isPending: fetchDayCount } = useQuery({
+  const { isPending: fetchDayCount } = useQuery({
     queryKey: ["DayCount"],
     queryFn: async () =>
       await GetDayCountAction(null)
-        .then((res) => res)
+        .then((res) => {
+          console.log("🚀 ~ .then ~ res:", res);
+          SetDayCount(res.data || 0);
+          return res;
+        })
         .catch((error) => ErrorNotify({ title: error.message })),
     staleTime: moment().endOf("day").diff(moment()),
   });
@@ -81,7 +88,7 @@ const StatusCard = ({ userId, LoadParty }: StatusCardProps) => {
           <Skeleton visible={fetchParty || fetchDayCount}>
             <Stack>
               <Flex direction="column">
-                <Text>Jour n° {dayCount?.data}</Text>
+                <Text>Jour n° {dayCount}</Text>
                 <Text>
                   Status :{" "}
                   {party?.data == null

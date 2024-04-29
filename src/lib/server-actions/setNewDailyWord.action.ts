@@ -33,4 +33,10 @@ export const setNewDailyWordAction = action(SetNewDailyWordScheme, async () => {
       },
     },
   });
+
+  logger.info(`New daily word set`, {
+    wordId: newWord,
+    date: currentDate,
+    action: "setNewDailyWord",
+  });
 });

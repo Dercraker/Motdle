@@ -188,6 +188,8 @@ const ConnectMotdle = ({ wantedSlug, partyId }: ConnectMotdleProps) => {
         isOpened={endGameModal}
         gameStatus={gameStatus}
         closeModal={toggleEndGameModal}
+        gameBoard={gameBoard}
+        slug={wantedSlug}
       />
     </>
   );

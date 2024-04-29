@@ -4,7 +4,7 @@ import {
   GameStatusType,
 } from "@/lib/zod/Motdle/GameStatus.schema";
 import { LineType } from "@/lib/zod/Motdle/Line.schema";
-import { Button, Group, Modal, Stack, Text, Title } from "@mantine/core";
+import { Button, Group, Modal, Stack, Title } from "@mantine/core";
 import ScoreSharing from "../motdle/ScoreSharing";
 
 interface EndModalProps {
@@ -33,17 +33,11 @@ const EndModal = ({
           </Modal.Header>
           <Modal.Body>
             <Stack>
-              {gameStatus === GameStatusSchema.enum.win ? (
-                <>
-                  <Text>Bravo tu à trouver le mot.</Text>
-                </>
-              ) : (
-                <Text>Dommage, tu as perdu.</Text>
-              )}
               <ScoreSharing
                 isWin={gameStatus === GameStatusSchema.enum.win}
                 gameBoard={gameBoard}
                 slug={slug}
+                href="/freeplay"
               />
               <Group align="center" justify="end">
                 <Button onClick={restartNewGame}>Rejouer</Button>
